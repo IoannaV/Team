@@ -1,7 +1,27 @@
-project(proj1)
-cmake_minimum_required(VERSION 2.8)
-set (CMAKE_CXX_STANDARD 14)
-set (CMAKE_CXX_FLAGS "-g -O0")
-aux_source_directory(. SRC_LIST)
-add_executable(${PROJECT_NAME} ${SRC_LIST})
-add_subdirectory(test)
+include_directories(
+   ./..
+   /home/ioanna/proj/googletest/googletest/include/
+   /home/ioanna/proj/googletest/googlemock/include/
+
+)
+link_directories (
+    /home/ioanna/proj/googletest/googletest/gtest/
+    /home/ioanna/proj/googletest/googlemock/gtest/
+    /home/ioanna/proj/googletest/googlemock/
+)
+
+set(SOURCES
+    test.cc
+)
+
+find_package (Threads)
+
+
+add_executable(proj_test  ${SOURCES})
+set (LIBRARIES
+    gtest
+    gtest_main
+    gmock
+)
+
+target_link_libraries(proj_test ${LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
